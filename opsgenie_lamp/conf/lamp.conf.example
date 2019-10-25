@@ -1,0 +1,4 @@
+# /opt/opsgenie_lamp/lamp createAlert --teams test --alias test --priority P5  --message test
+apiKey={{ api_key }}
+connectionTimeout=10
+requestTimeout=10

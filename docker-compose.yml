@@ -1,0 +1,12 @@
+version: '2'
+services:
+  opsgenie-heartbeat:
+    image: shalb/opsgenie-heartbeat:0.0.1
+   #volumes:
+   #  - ./entrypoint:/opt/entrypoint
+    restart: always
+   #ports:
+   #  - "8000:8000"
+    env_file:
+      - ./opsgenie-heartbeat/env_secrets
+

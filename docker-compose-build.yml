@@ -1,0 +1,7 @@
+version: '2'
+services:
+  opsgenie-heartbeat:
+    build:
+      context: ./
+    image: shalb/opsgenie-heartbeat:0.0.1
+
