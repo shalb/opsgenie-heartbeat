@@ -2,6 +2,7 @@
 tasks:
    - 'heartbeat'
 prometheus_test_url: 'http://prometheus-prod:9090/metrics'
+alertmanager_test_url: 'http://alertmanager:9093/metrics'
 log_level: 'INFO'
 check_interval: 10
 config_name: '/tmp/opsgenie_lamp.conf'

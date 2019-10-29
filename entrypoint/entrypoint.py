@@ -46,16 +46,41 @@ def configure_logging():
 # Decorate function with metric.
 @REQUEST_TIME.time()
 def get_data():
-    '''Get data from target service'''
+    '''Get alerting errors from monitoring stack'''
+    # prometheus
+    data['error'] = False
     req = urllib.request.Request(conf['prometheus_test_url'])
     responce = urllib.request.urlopen(req)
-    raw_data = responce.read().decode()
-    if 'prometheus_notifications_errors_total' in raw_data:
-        if send_heartbeat():
-            return True
+    for line in responce:
+        line = line.decode()
+        if line.startswith('prometheus_notifications_dropped_total'):
+            key = line.split()[0]
+            val = int(line.split()[-1])
+            if data[key] < val:
+                data['error'] = True
+                log.info('{0} = {1}, heartbeat notification skiped'.format(key, val))
+            data[key] = val
+            break
+    # alertmanager
+    req = urllib.request.Request(conf['alertmanager_test_url'])
+    responce = urllib.request.urlopen(req)
+    for line in responce:
+        line = line.decode()
+        if line.startswith('alertmanager_notifications_failed_total{integration="opsgenie"}'):
+            key = line.split()[0]
+            val = int(line.split()[-1])
+            if data[key] < val:
+                data['error'] = True
+                log.info('{0} = {1}, heartbeat notification skiped'.format(key, val))
+            data[key] = val
+            break
+    if data['error']:
+        return False
+    if send_heartbeat():
+        return True
 
 def send_heartbeat():
-    '''Get data '''
+    '''Send heartbeat to Opsgenie'''
     # create config
     opsgenie_lamp_config = 'apiKey={0}\nconnectionTimeout=10\nrequestTimeout=10\n'.format(os.environ['OPSGENIE_API_KEY'])
     if not os.path.exists(conf['config_name']):
@@ -76,6 +101,11 @@ def send_heartbeat():
     return True
 
 # run
+data = {
+    'prometheus_notifications_dropped_total': 0,
+    'alertmanager_notifications_failed_total{integration="opsgenie"}': 0,
+    'error': False
+}
 conf = dict()
 get_config(args)
 log = configure_logging()
