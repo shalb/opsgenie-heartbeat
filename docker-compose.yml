@@ -4,6 +4,7 @@ services:
     image: shalb/opsgenie-heartbeat:0.0.1
    #volumes:
    #  - ./entrypoint:/opt/entrypoint
+   #  - ./opsgenie-heartbeat/opsgenie-heartbeat_api_key:/run/secrets/opsgenie-heartbeat_api_key
     restart: always
    #ports:
    #  - "8000:8000"

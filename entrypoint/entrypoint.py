@@ -34,6 +34,19 @@ def get_config(args):
     for key in conf_yaml:
         if not conf.get(key):
             conf[key] = conf_yaml[key]
+    opsgenie_api_key = os.environ.get('OPSGENIE_API_KEY')
+    if opsgenie_api_key:
+        if os.path.isfile(opsgenie_api_key):
+            with open(opsgenie_api_key) as opsgenie_api_key_file:
+                conf['opsgenie_api_key'] = opsgenie_api_key_file.read().strip()
+        else:
+            conf['opsgenie_api_key'] = opsgenie_api_key
+    prometheus_test_url = os.environ.get('PROMETHEUS_TEST_URL')
+    if prometheus_test_url:
+        conf['prometheus_test_url'] = prometheus_test_url
+    alertmanager_test_url = os.environ.get('ALERTMANAGER_TEST_URL')
+    if alertmanager_test_url:
+        conf['alertmanager_test_url'] = alertmanager_test_url
 
 def configure_logging():
     '''Configure logging module'''
@@ -82,7 +95,7 @@ def get_data():
 def send_heartbeat():
     '''Send heartbeat to Opsgenie'''
     # create config
-    opsgenie_lamp_config = 'apiKey={0}\nconnectionTimeout=10\nrequestTimeout=10\n'.format(os.environ['OPSGENIE_API_KEY'])
+    opsgenie_lamp_config = 'apiKey={0}\nconnectionTimeout=10\nrequestTimeout=10\n'.format(conf['opsgenie_api_key'])
     if not os.path.exists(conf['config_name']):
         with open(conf['config_name'], 'w') as opsgenie_lamp_config_file:
             opsgenie_lamp_config_file.write(opsgenie_lamp_config)
