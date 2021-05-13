@@ -5,7 +5,6 @@ metadata:
     app: opsgenie-heartbeat
     release: prometheus-operator
   name: opsgenie-heartbeat
-  namespace: monitoring
 spec:
   endpoints:
   - port: metrics
