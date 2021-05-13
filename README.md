@@ -24,6 +24,14 @@ Use docker-compose.yml to run container with env file opsgenie-heartbeat/env_sec
 docker-compose up
 ~~~~
 
+## prepare helm chart
+
+~~~~
+helm package examples/helmfile/opsgenie-heartbeat/
+mv opsgenie-heartbeat-0.0.1.tgz charts/
+helm repo index charts --url https://raw.githubusercontent.com/shalb/opsgenie-heartbeat/main/charts/
+~~~~
+
 ## dependencies if want to run without container
 
 pip3 install --user pyaml prometheus_client

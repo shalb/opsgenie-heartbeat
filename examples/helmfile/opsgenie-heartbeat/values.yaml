@@ -1,0 +1,6 @@
+opsgenie_api_key: 00000000-0000-0000-0000-000000000000
+project: my_project
+prometheus_test_url: http://monitoring-kube-prometheus-prometheus:9090/metrics
+alertmanager_test_url: http://monitoring-kube-prometheus-alertmanager:9093/metrics
+#prometheus_test_url: http://prometheus-operator-prometheus:9090/metrics
+#alertmanager_test_url: http://prometheus-operator-alertmanager:9093/metrics

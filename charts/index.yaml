@@ -1,0 +1,12 @@
+apiVersion: v1
+entries:
+  opsgenie-heartbeat:
+  - apiVersion: v1
+    created: 2021-05-13T06:06:13.909938947Z
+    description: opsgenie heartbeat for prometheus monitoring
+    digest: 0ac870338048befc22a63b1da1a9ee4f08df46033944eb454381ef040d4e0879
+    name: opsgenie-heartbeat
+    urls:
+    - https://raw.githubusercontent.com/shalb/opsgenie-heartbeat/main/charts/opsgenie-heartbeat-0.0.1.tgz
+    version: 0.0.1
+generated: 2021-05-13T06:06:13.909546774Z
