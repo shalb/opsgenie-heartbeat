@@ -37,7 +37,7 @@ spec:
             value: "{{ .Values.opsgenie_api_key }}"
           - name: PROJECT
             value: "{{ .Values.project }}"
-      {{- with .Values.affinity }}
-        affinity:
-  {{ toYaml . | indent 8 }}
-      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
