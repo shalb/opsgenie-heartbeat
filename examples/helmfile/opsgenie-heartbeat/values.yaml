@@ -13,3 +13,7 @@ alertmanager_test_url: http://monitoring-kube-prometheus-alertmanager:9093/metri
 #          operator: In
 #          values:
 #          - infra
+#tolerations:
+#  - key: "application"
+#    operator: "Exists"
+#    effect: "NoSchedule"
