@@ -28,7 +28,7 @@ docker-compose up
 
 ~~~~
 helm package examples/helmfile/opsgenie-heartbeat/
-mv opsgenie-heartbeat-0.0.4.tgz charts/
+mv opsgenie-heartbeat-0.0.5.tgz charts/
 helm repo index charts --url https://raw.githubusercontent.com/shalb/opsgenie-heartbeat/master/charts/
 ~~~~
 
