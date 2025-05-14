@@ -2,6 +2,6 @@ releases:
   - name: opsgenie-heartbeat
     namespace: monitoring
     chart: opsgenie-heartbeat
-    version: 0.0.1
+    version: 0.0.6
     values:
       - opsgenie-heartbeat/values.yaml
