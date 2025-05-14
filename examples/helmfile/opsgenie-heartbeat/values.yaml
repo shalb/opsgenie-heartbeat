@@ -1,12 +1,15 @@
 env:
   - name: PROMETHEUS_TEST_URL
-    value: "http://monitoring-kube-prometheus-prometheus:9090/metrics"
+    value: "http://kube-prometheus-stack-prometheus:9090/metrics"
   - name: ALERTMANAGER_TEST_URL
-    value: "http://monitoring-kube-prometheus-alertmanager:9093/metrics"
+    value: "http://kube-prometheus-stack-alertmanager:9093/metrics"
   - name: OPSGENIE_API_KEY
-    value: "00000000-0000-0000-0000-000000000000"
+    value: "/secrets/opsgenie-api-key" # path to mounted secret (see example secret in examples/helmfile/example-secret.yaml)
   - name: PROJECT
-    value: "my_project"
+    value: "my_project" # this value added to template and resultimg heartbeat name will be: monitoring_my_project_prometheus
+opsgenie_api_key:
+  secret_name: "alertmanager-opsgenie-api-key" # secret name in the same namespace
+  mount_path: "/secrets" # directory, where secret will be mounted
 resources:
   requests:
     memory: "20Mi"

@@ -21,6 +21,10 @@ spec:
         image: shalb/opsgenie-heartbeat:0.0.1
         ports:
         - containerPort: 8000
+        volumeMounts:
+        - name: opsgenie-api-key
+          mountPath: "{{ .Values.opsgenie_api_key.mount_path }}"
+          readOnly: true
         resources:
         {{- with .Values.resources }}
 {{ toYaml . | indent 10 }}
@@ -37,3 +41,7 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
       {{- end }}
+      volumes:
+      - name: opsgenie-api-key
+        secret:
+          secretName: {{ .Values.opsgenie_api_key.secret_name }}
