@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: opsgenie-heartbeat
-        image: shalb/opsgenie-heartbeat:0.0.1
+        image: "{{ .Values.image }}"
         ports:
         - containerPort: 8000
         volumeMounts:

@@ -68,6 +68,8 @@ def get_data():
         line = line.decode()
         if line.startswith('prometheus_notifications_dropped_total'):
             key = line.split()[0]
+            if '{' in key:
+                key = key.split('{')[0]
             val = int(line.split()[-1])
             if data[key] < val:
                 data['error'] = True

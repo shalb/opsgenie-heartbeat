@@ -3,5 +3,5 @@ services:
   opsgenie-heartbeat:
     build:
       context: ./
-    image: shalb/opsgenie-heartbeat:0.0.1
+    image: shalb/opsgenie-heartbeat:0.0.2
 

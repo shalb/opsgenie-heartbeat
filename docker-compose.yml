@@ -1,13 +1,47 @@
 version: '2'
 services:
   opsgenie-heartbeat:
-    image: shalb/opsgenie-heartbeat:0.0.1
+    image: shalb/opsgenie-heartbeat:0.0.2
    #volumes:
    #  - ./entrypoint:/opt/entrypoint
    #  - ./opsgenie-heartbeat/opsgenie-heartbeat_api_key:/run/secrets/opsgenie-heartbeat_api_key
     restart: always
    #ports:
    #  - "8000:8000"
+    environment:
+      PROMETHEUS_TEST_URL: "http://prometheus:9090/metrics"
+      ALERTMANAGER_TEST_URL: "http://alertmanager:9093/metrics"
+      PYTHONUNBUFFERED: https://docs.python.org/3/using/cmdline.html#envvar-PYTHONUNBUFFERED
     env_file:
       - ./opsgenie-heartbeat/env_secrets
 
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v3.11.3
+    volumes:
+      - ./prometheus/configs:/etc/prometheus:ro
+     #- ./prometheus/storage:/prometheus
+    restart: always
+    ports:
+      - "127.0.0.1:9090:9090"
+    command:
+     #- "--log.level=debug"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-remote-write-receiver"
+      - "--storage.tsdb.retention.time=1h"
+
+  alertmanager:
+    container_name: alertmanager
+    image: prom/alertmanager:v0.32.1
+    volumes:
+      - ./alertmanager/configs:/etc/alertmanager:ro
+     #- ./alertmanager/storage:/alertmanager
+    restart: always
+    ports:
+      - "127.0.0.1:9093:9093"
+    command:
+     #- "--log.level=debug"
+      - "--storage.path=/alertmanager/"
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--cluster.listen-address="
