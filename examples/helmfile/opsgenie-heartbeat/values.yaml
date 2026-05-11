@@ -7,6 +7,7 @@ env:
     value: "/secrets/opsgenie-api-key" # path to mounted secret (see example secret in examples/helmfile/example-secret.yaml)
   - name: PROJECT
     value: "my_project" # this value added to template and resultimg heartbeat name will be: monitoring_my_project_prometheus
+image: "shalb/opsgenie-heartbeat:0.0.2"
 opsgenie_api_key:
   secret_name: "alertmanager-opsgenie-api-key" # secret name in the same namespace
   mount_path: "/secrets" # directory, where secret will be mounted

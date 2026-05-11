@@ -1,0 +1,14 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: [...]
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 120h
+  receiver: blackhole
+  routes:
+    - receiver: blackhole
+      group_by: [...]
+receivers:
+  - name: blackhole

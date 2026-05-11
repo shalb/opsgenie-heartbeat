@@ -12,7 +12,7 @@ Use this container if you use opsgennie heartbeat
 # Install helm chart
 helm repo add opsgenie-heartbeat https://raw.githubusercontent.com/shalb/opsgenie-heartbeat/master/charts/
 helm repo update
-helm -n monitoring install opsgenie-heartbeat opsgenie-heartbeat/opsgenie-heartbeat -f opsgenie-heartbeat.yaml --version 0.0.6
+helm -n monitoring install opsgenie-heartbeat opsgenie-heartbeat/opsgenie-heartbeat -f opsgenie-heartbeat.yaml --version 0.0.7
 ```
 
 ## build
@@ -38,7 +38,7 @@ docker-compose up
 
 ```bash
 helm package examples/helmfile/opsgenie-heartbeat/
-mv opsgenie-heartbeat-0.0.6.tgz charts/
+mv opsgenie-heartbeat-0.0.7.tgz charts/
 helm repo index charts --url https://raw.githubusercontent.com/shalb/opsgenie-heartbeat/master/charts/
 ```
 

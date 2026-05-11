@@ -1,0 +1,23 @@
+global:
+  scrape_interval:     10s
+  evaluation_interval: 10s
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+rule_files: []
+
+scrape_configs:
+  - job_name: 'opsgenie-heartbeat'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['opsgenie-heartbeat:8000']
+        labels:
+          host: 'monitoring'
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'opsgenie_heartbeat_up|opsgenie_heartbeat_errors_total|opsgenie_heartbeat_prometheus_status'
+        action: keep
